@@ -86,7 +86,7 @@ set shiftwidth=2                " Number of spaces to use for (auto)indent
 set shiftround                  " Round indent to multiple of 'shiftwidth'
 set expandtab                   " Convert tabs to spaces in insert mode
 set smarttab                    " Insert blanks (shiftwidth amount) on newline
-set nowrap                      " Don't wrap by default
+set wrap                        " Wrap by default
 set grepprg=ag                  " Use Silver Searcher instead of grep
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
