@@ -112,8 +112,6 @@ nmap <leader>h :nohlsearch<CR>    " Clear highlight after a search
 cmap W w " Make :W act like :w
 cmap Q q " Make :Q act like :q
 
-noremap k gk              " j/k skip 'screen lines' in stead of 'document lines'
-noremap j gj              " j/k skip 'screen lines' in stead of 'document lines'
 nmap 0 ^                  " Easy access to the start of the line
 
 vnoremap > >gv      " Indent in visual and select mode automatically re-selects
