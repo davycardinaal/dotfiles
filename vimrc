@@ -116,6 +116,7 @@ cmap W w                        " Make :W act like :w
 cmap Q q                        " Make :Q act like :q
 
 nmap 0 ^                        " Easy access to the start of the line
+nmap Q gq                       " Disable Ex mode, remap Q to formatting
 
 vnoremap > >gv                  " Indent and automatically re-select
 vnoremap < <gv                  " Indent and automatically re-select
