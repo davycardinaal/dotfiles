@@ -99,10 +99,10 @@ let g:ctrlp_use_caching = 0
 
 let mapleader = ","
 
-map <Leader>ve :tabe ~/.vimrc<CR>
-nmap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR>
-nmap <leader>n :set number!<CR>   " Toggle line numbers with ,n
-nmap <leader>h :nohlsearch<CR>    " Clear highlight after a search
+nmap <Leader>ve :tabe ~/.vimrc<CR>  " Edit .vimrc in a new tab.
+nmap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
+nmap <leader>n :set number!<CR>     " Toggle line numbers with ,n
+nmap <leader>h :nohlsearch<CR>      " Clear highlight after a search
 
 
 " ==============================================================================
@@ -110,9 +110,9 @@ nmap <leader>h :nohlsearch<CR>    " Clear highlight after a search
 " ==============================================================================
 
 cmap W w " Make :W act like :w
-cmap Q q " Make :Q act like :q
+cmap Q q                        " Make :Q act like :q
 
-nmap 0 ^                  " Easy access to the start of the line
+nmap 0 ^                        " Easy access to the start of the line
 
-vnoremap > >gv      " Indent in visual and select mode automatically re-selects
-vnoremap < <gv      " Indent in visual and select mode automatically re-selects
+vnoremap > >gv                  " Indent and automatically re-select
+vnoremap < <gv                  " Indent and automatically re-select
