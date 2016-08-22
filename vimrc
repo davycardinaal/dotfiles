@@ -18,6 +18,7 @@ Plugin 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
 Plugin 'tpope/vim-bundler'                " bundle commands
 Plugin 'tpope/vim-fugitive'               " git commands
 Plugin 'tpope/vim-jdaddy'                 " format JSON with gqaj
+Plugin 'scrooloose/nerdcommenter'         " easy commenting
 Plugin 'tpope/vim-rails'                  " rails commands
 Plugin 'tpope/vim-rake'                   " rake commands
 Plugin 'tpope/vim-repeat'                 " more repeatings with .
@@ -99,10 +100,12 @@ let g:ctrlp_use_caching = 0
 
 let mapleader = ","
 
-nmap <Leader>ve :tabe ~/.vimrc<CR>  " Edit .vimrc in a new tab.
-nmap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
-nmap <leader>n :set number!<CR>     " Toggle line numbers with ,n
 nmap <leader>h :nohlsearch<CR>      " Clear highlight after a search
+nmap <leader>n :set number!<CR>     " Toggle line numbers with ,n
+nmap <leader>ve :tabe ~/.vimrc<CR>  " Edit .vimrc in a new tab.
+nmap <leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
+vmap <leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
+nmap <leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
 
 
 " ==============================================================================
