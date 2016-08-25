@@ -113,8 +113,8 @@ nmap <leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
 " Other mappings
 " ==============================================================================
 
-cmap W w                        " Make :W act like :w
-cmap Q q                        " Make :Q act like :q
+cnoremap W w                    " Make :W act like :w
+cnoremap Q q                    " Make :Q act like :q
 
 nmap 0 ^                        " Easy access to the start of the line
 nmap Q gq                       " Disable Ex mode, remap Q to formatting
