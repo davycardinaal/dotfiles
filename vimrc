@@ -90,7 +90,8 @@ set wrap                        " Wrap by default
 set grepprg=ag                  " Use Silver Searcher instead of grep
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" Also include hidden files, but not the ones from the gitignore.
+let g:ctrlp_user_command = ['ag %s -l --hidden --nocolor -g ""', '.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_use_caching = 0
 
 
