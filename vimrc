@@ -107,16 +107,16 @@ let g:ctrlp_use_caching = 0
 
 let mapleader = ","
 
-nmap <leader>h :nohlsearch<CR>      " Clear highlight after a search
-nmap <leader>n :set number!<CR>     " Toggle line numbers with ,n
-nmap <leader>ve :tabe ~/.vimrc<CR>  " Edit .vimrc in a new tab.
-nmap <leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
-vmap <leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
-nmap <leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
+nmap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
+nmap <Leader>h :nohlsearch<CR>            " Clear highlight after a search
+nmap <Leader>n :set number!<CR>           " Toggle line numbers with ,n
 nmap <Leader>sa :call RunAllSpecs()<CR>         " sa => Spec All
 nmap <Leader>sf :call RunCurrentSpecFile()<CR>  " sf => Spec File
 nmap <Leader>sl :call RunLastSpec()<CR>         " sl => Spec Last
 nmap <Leader>sn :call RunNearestSpec()<CR>      " sn => Spec Nearest
+nmap <Leader>ve :tabe ~/.vimrc<CR>        " Edit .vimrc in a new tab.
+nmap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
+vmap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
 
 
 " ==============================================================================
