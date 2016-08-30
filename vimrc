@@ -110,12 +110,14 @@ let mapleader = ","
 nmap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
 nmap <Leader>h :nohlsearch<CR>            " Clear highlight after a search
 nmap <Leader>n :set number!<CR>           " Toggle line numbers with ,n
+nmap <Leader>q :q<CR>                     " Quit files
 nmap <Leader>sa :call RunAllSpecs()<CR>         " sa => Spec All
 nmap <Leader>sf :call RunCurrentSpecFile()<CR>  " sf => Spec File
 nmap <Leader>sl :call RunLastSpec()<CR>         " sl => Spec Last
 nmap <Leader>sn :call RunNearestSpec()<CR>      " sn => Spec Nearest
 nmap <Leader>ve :tabe ~/.vimrc<CR>        " Edit .vimrc in a new tab.
 nmap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
+nmap <Leader>w :w<CR>                     " Save files
 vmap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
 
 
