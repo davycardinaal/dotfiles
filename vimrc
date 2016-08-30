@@ -24,6 +24,7 @@ Plugin 'tpope/vim-rake'                   " rake commands
 Plugin 'tpope/vim-repeat'                 " more repeatings with .
 Plugin 'tpope/vim-surround'               " surroundings
 Plugin 'vim-ruby/vim-ruby'                " ruby commands
+Plugin 'thoughtbot/vim-rspec'             " Rspec commands
 
 Plugin 'tpope/vim-haml'                   " syntax highlight .haml
 Plugin 'tpope/vim-markdown'               " syntax highlight .md
@@ -49,6 +50,11 @@ syntax on                 " Enable syntax highlighting
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
+
+" Rspec command for vagrant boxes
+let g:rspec_command = 'vagrant ssh -c "cd /vagrant && rspec {spec}"'
+" Use iTerm2 as rspec runner
+let g:rspec_runner = 'os_x_iterm2'
 
 
 " ==============================================================================
@@ -107,6 +113,10 @@ nmap <leader>ve :tabe ~/.vimrc<CR>  " Edit .vimrc in a new tab.
 nmap <leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
 vmap <leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
 nmap <leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
+nmap <Leader>sa :call RunAllSpecs()<CR>         " sa => Spec All
+nmap <Leader>sf :call RunCurrentSpecFile()<CR>  " sf => Spec File
+nmap <Leader>sl :call RunLastSpec()<CR>         " sl => Spec Last
+nmap <Leader>sn :call RunNearestSpec()<CR>      " sn => Spec Nearest
 
 
 " ==============================================================================
