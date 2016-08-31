@@ -52,7 +52,7 @@ syntax on                 " Enable syntax highlighting
 runtime macros/matchit.vim
 
 " Rspec command for vagrant boxes
-let g:rspec_command = 'vagrant ssh -c "cd /vagrant && rspec {spec}"'
+let g:rspec_command = 'vssh "cd /vagrant && rspec {spec}"'
 " Use iTerm2 as rspec runner
 let g:rspec_runner = 'os_x_iterm2'
 
