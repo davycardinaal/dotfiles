@@ -108,6 +108,8 @@ let g:ctrlp_use_caching = 0
 let mapleader = ","
 
 nmap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
+nmap <Leader>cn :cn<CR>                   " Navigate to next search result
+nmap <Leader>cp :cp<CR>                   " Navigate to previous search result
 nmap <Leader>h :nohlsearch<CR>            " Clear highlight after a search
 nmap <Leader>n :set number!<CR>           " Toggle line numbers with ,n
 nmap <Leader>q :q<CR>                     " Quit files
