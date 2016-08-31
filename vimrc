@@ -125,9 +125,6 @@ vmap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
 " Other mappings
 " ==============================================================================
 
-cnoremap W w                    " Make :W act like :w
-cnoremap Q q                    " Make :Q act like :q
-
 nmap 0 ^                        " Easy access to the start of the line
 nmap Q gq                       " Disable Ex mode, remap Q to formatting
 
