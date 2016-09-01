@@ -107,28 +107,28 @@ let g:ctrlp_use_caching = 0
 
 let mapleader = ","
 
-nmap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
-nmap <Leader>cn :cn<CR>                   " Navigate to next search result
-nmap <Leader>cp :cp<CR>                   " Navigate to previous search result
-nmap <Leader>h :nohlsearch<CR>            " Clear highlight after a search
-nmap <Leader>n :set number!<CR>           " Toggle line numbers with ,n
-nmap <Leader>q :q<CR>                     " Quit files
-nmap <Leader>sa :call RunAllSpecs()<CR>         " sa => Spec All
-nmap <Leader>sf :call RunCurrentSpecFile()<CR>  " sf => Spec File
-nmap <Leader>sl :call RunLastSpec()<CR>         " sl => Spec Last
-nmap <Leader>sn :call RunNearestSpec()<CR>      " sn => Spec Nearest
-nmap <Leader>ve :tabe ~/.vimrc<CR>        " Edit .vimrc in a new tab.
-nmap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
-nmap <Leader>w :w<CR>                     " Save files
-vmap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
+nnoremap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
+nnoremap <Leader>cn :cn<CR>                   " Navigate to next search result
+nnoremap <Leader>cp :cp<CR>                   " Navigate to previous search result
+nnoremap <Leader>h :nohlsearch<CR>            " Clear highlight after a search
+nnoremap <Leader>n :set number!<CR>           " Toggle line numbers with ,n
+nnoremap <Leader>q :q<CR>                     " Quit files
+nnoremap <Leader>sa :call RunAllSpecs()<CR>         " sa => Spec All
+nnoremap <Leader>sf :call RunCurrentSpecFile()<CR>  " sf => Spec File
+nnoremap <Leader>sl :call RunLastSpec()<CR>         " sl => Spec Last
+nnoremap <Leader>sn :call RunNearestSpec()<CR>      " sn => Spec Nearest
+nnoremap <Leader>ve :tabe ~/.vimrc<CR>        " Edit .vimrc in a new tab.
+nnoremap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
+nnoremap <Leader>w :w<CR>                     " Save files
+vnoremap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
 
 
 " ==============================================================================
 " Other mappings
 " ==============================================================================
 
-nmap 0 ^                        " Easy access to the start of the line
-nmap Q gq                       " Disable Ex mode, remap Q to formatting
+nnoremap 0 ^                        " Easy access to the start of the line
+nnoremap Q gq                       " Disable Ex mode, remap Q to formatting
 
 vnoremap > >gv                  " Indent and automatically re-select
 vnoremap < <gv                  " Indent and automatically re-select
