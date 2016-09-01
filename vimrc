@@ -17,7 +17,6 @@ Plugin 'ngmy/vim-rubocop'                 " rubocop integration
 Plugin 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
 Plugin 'tpope/vim-bundler'                " bundle commands
 Plugin 'tpope/vim-fugitive'               " git commands
-Plugin 'tpope/vim-jdaddy'                 " format JSON with gqaj
 Plugin 'scrooloose/nerdcommenter'         " easy commenting
 Plugin 'tpope/vim-rails'                  " rails commands
 Plugin 'tpope/vim-rake'                   " rake commands
