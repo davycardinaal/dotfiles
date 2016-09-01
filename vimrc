@@ -111,7 +111,7 @@ let g:ackprg = 'ag --vimgrep'
 let mapleader = ","
 
 nnoremap <Leader>/ <plug>NERDCommenterInvert
-nnoremap <Leader>ag :Ack<Space>
+nnoremap <Leader>a :Ack<Space>
 nnoremap <Leader>h :nohlsearch<CR>
 nnoremap <Leader>n :cn<CR>
 nnoremap <Leader>p :cp<CR>
@@ -139,3 +139,6 @@ nnoremap Q gq
 " Indent and automatically re-select
 vnoremap > >gv
 vnoremap < <gv
+
+" Search for word under cursor and open search results
+nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
