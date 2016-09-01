@@ -110,29 +110,32 @@ let g:ackprg = 'ag --vimgrep'
 
 let mapleader = ","
 
-nnoremap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in normal mode
-nnoremap <Leader>cn :cn<CR>                   " Navigate to next search result
-nnoremap <Leader>cp :cp<CR>                   " Navigate to previous search result
-nnoremap <Leader>h :nohlsearch<CR>            " Clear highlight after a search
-nnoremap <Leader>n :set number!<CR>           " Toggle line numbers with ,n
-nnoremap <Leader>q :q<CR>                     " Quit files
-nnoremap <Leader>sa :call RunAllSpecs()<CR>         " sa => Spec All
-nnoremap <Leader>sf :call RunCurrentSpecFile()<CR>  " sf => Spec File
-nnoremap <Leader>sl :call RunLastSpec()<CR>         " sl => Spec Last
-nnoremap <Leader>sn :call RunNearestSpec()<CR>      " sn => Spec Nearest
-nnoremap <Leader>ve :tabe ~/.vimrc<CR>        " Edit .vimrc in a new tab.
-nnoremap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR> " Install .vimrc
-nnoremap <Leader>w :w<CR>                     " Save files
-vnoremap <Leader>/ <plug>NERDCommenterInvert  " Toggle comment in visual mode
+nnoremap <Leader>/ <plug>NERDCommenterInvert
 nnoremap <Leader>ag :Ack<Space>
+nnoremap <Leader>h :nohlsearch<CR>
+nnoremap <Leader>n :cn<CR>
+nnoremap <Leader>p :cp<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>sa :call RunAllSpecs()<CR>
+nnoremap <Leader>sf :call RunCurrentSpecFile()<CR>
+nnoremap <Leader>sl :call RunLastSpec()<CR>
+nnoremap <Leader>sn :call RunNearestSpec()<CR>
+nnoremap <Leader>ve :tabe ~/.vimrc<CR>
+nnoremap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR>
+nnoremap <Leader>w :w<CR>
+vnoremap <Leader>/ <plug>NERDCommenterInvert
 
 
 " ==============================================================================
 " Other mappings
 " ==============================================================================
 
-nnoremap 0 ^                        " Easy access to the start of the line
-nnoremap Q gq                       " Disable Ex mode, remap Q to formatting
+" Easy access to the start of the line
+nnoremap 0 ^
 
-vnoremap > >gv                  " Indent and automatically re-select
-vnoremap < <gv                  " Indent and automatically re-select
+" Disable Ex mode, remap Q to formatting
+nnoremap Q gq
+
+" Indent and automatically re-select
+vnoremap > >gv
+vnoremap < <gv
