@@ -17,7 +17,7 @@ Plugin 'ngmy/vim-rubocop'                 " rubocop integration
 Plugin 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
 Plugin 'tpope/vim-bundler'                " bundle commands
 Plugin 'tpope/vim-fugitive'               " git commands
-Plugin 'scrooloose/nerdcommenter'         " easy commenting
+Plugin 'tpope/vim-commentary'             " easy commenting
 Plugin 'tpope/vim-rails'                  " rails commands
 Plugin 'tpope/vim-rake'                   " rake commands
 Plugin 'tpope/vim-repeat'                 " more repeatings with .
@@ -110,7 +110,6 @@ let g:ackprg = 'ag --vimgrep'
 
 let mapleader = ","
 
-nnoremap <Leader>/ <plug>NERDCommenterInvert
 nnoremap <Leader>a :Ack<Space>
 nnoremap <Leader>h :nohlsearch<CR>
 nnoremap <Leader>n :cn<CR>
@@ -123,7 +122,7 @@ nnoremap <Leader>sn :call RunNearestSpec()<CR>
 nnoremap <Leader>ve :tabe ~/.vimrc<CR>
 nnoremap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR>
 nnoremap <Leader>w :w<CR>
-vnoremap <Leader>/ <plug>NERDCommenterInvert
+map <Leader>/ gcc
 
 
 " ==============================================================================
