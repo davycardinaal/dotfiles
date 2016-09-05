@@ -133,7 +133,7 @@ map <Leader>/ gcc
 nnoremap 0 ^
 
 " Disable Ex mode, remap Q to formatting
-nnoremap Q gq
+nnoremap Q gq<CR>
 
 " Indent and automatically re-select
 vnoremap > >gv
