@@ -111,6 +111,7 @@ let g:ackprg = 'ag --vimgrep'
 let mapleader = ","
 
 nnoremap <Leader>a :Ack<Space>
+nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>h :nohlsearch<CR>
 nnoremap <Leader>n :cn<CR>
 nnoremap <Leader>p :cp<CR>
