@@ -51,8 +51,6 @@ syntax on                 " Enable syntax highlighting
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
 
-" Rspec command for vagrant boxes
-let g:rspec_command = 'vssh rspec {spec}'
 " Use iTerm2 as rspec runner
 let g:rspec_runner = 'os_x_iterm2'
 
