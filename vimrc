@@ -32,14 +32,14 @@ Plugin 'kchmck/vim-coffee-script'         " syntax highlight .coffee
 Plugin 'groenewege/vim-less'              " syntax highlight .less
 Plugin 'slim-template/vim-slim.git'       " syntax highlight .slim
 
-Plugin 'jpo/vim-railscasts-theme'         " colorscheme
+Plugin 'chriskempson/base16-vim'          " colorscheme
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Use the colorscheme from above
-colorscheme railscasts
+colorscheme base16-railscasts
 
 
 " ==============================================================================
