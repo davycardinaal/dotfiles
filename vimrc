@@ -94,6 +94,7 @@ set expandtab                   " Convert tabs to spaces in insert mode
 set smarttab                    " Insert blanks (shiftwidth amount) on newline
 set wrap                        " Wrap by default
 set whichwrap=b,s,<,>,[,]       " Cursor keys move from eol to start of next line
+set clipboard=unnamed           " Yank text to OS X clipboard
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 " Also include hidden files, but not the ones from the gitignore.
