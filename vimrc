@@ -115,6 +115,7 @@ nnoremap <Leader>a :Ack<Space>
 nnoremap <Leader>bi :Bundle<CR>
 nnoremap <Leader>bs :Bsplit<Space>
 nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gst :Gstatus<CR>
 nnoremap <Leader>h :nohlsearch<CR>
 nnoremap <Leader>n :cn<CR>
 nnoremap <Leader>p :cp<CR>
