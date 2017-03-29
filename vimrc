@@ -31,6 +31,7 @@ Plugin 'tpope/vim-markdown'               " syntax highlight .md
 Plugin 'kchmck/vim-coffee-script'         " syntax highlight .coffee
 Plugin 'groenewege/vim-less'              " syntax highlight .less
 Plugin 'slim-template/vim-slim.git'       " syntax highlight .slim
+Plugin 'leafgarland/typescript-vim'       " syntax highlight .ts
 
 Plugin 'chriskempson/base16-vim'          " colorscheme
 
