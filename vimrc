@@ -25,6 +25,7 @@ Plugin 'tpope/vim-surround'               " surroundings
 Plugin 'vim-ruby/vim-ruby'                " ruby commands
 Plugin 'thoughtbot/vim-rspec'             " Rspec commands
 Plugin 'mileszs/ack.vim'                  " Search tool
+Plugin 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
 
 Plugin 'tpope/vim-haml'                   " syntax highlight .haml
 Plugin 'tpope/vim-markdown'               " syntax highlight .md
