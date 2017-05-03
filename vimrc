@@ -96,7 +96,6 @@ set expandtab                   " Convert tabs to spaces in insert mode
 set smarttab                    " Insert blanks (shiftwidth amount) on newline
 set wrap                        " Wrap by default
 set whichwrap=b,s,<,>,[,]       " Cursor keys move from eol to start of next line
-set clipboard=unnamed           " Yank text to OS X clipboard
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 " Also include hidden files, but not the ones from the gitignore.
@@ -149,3 +148,6 @@ vnoremap < <gv
 
 " Search for word under cursor and open search results
 nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" Save text to clipboard in visual mode by hitting ctrl-c
+vnoremap <C-c> :w !pbcopy<CR><CR>
