@@ -33,6 +33,7 @@ Plugin 'kchmck/vim-coffee-script'         " syntax highlight .coffee
 Plugin 'groenewege/vim-less'              " syntax highlight .less
 Plugin 'slim-template/vim-slim.git'       " syntax highlight .slim
 Plugin 'leafgarland/typescript-vim'       " syntax highlight .ts
+Plugin 'keith/rspec.vim'                  " Better highlighting for rspec
 
 Plugin 'chriskempson/base16-vim'          " colorscheme
 
