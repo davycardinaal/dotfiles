@@ -128,7 +128,7 @@ nnoremap <Leader>sf :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>sl :call RunLastSpec()<CR>
 nnoremap <Leader>sn :call RunNearestSpec()<CR>
 nnoremap <Leader>ve :tabe ~/.vimrc<CR>
-nnoremap <Leader>vi :source ~/.vimrc<CR>:PluginInstall<CR>
+nnoremap <Leader>vi :source ~/.vimrc<CR>:PluginInstall!<CR>
 nnoremap <Leader>w :w<CR>
 map <Leader>/ gcc
 
