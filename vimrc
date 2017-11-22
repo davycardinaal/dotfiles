@@ -59,6 +59,9 @@ let g:rspec_command = '!bundle exec rspec {spec}'
 " Use iTerm2 as rspec runner
 let g:rspec_runner = 'os_x_iterm2'
 
+" Set RuboCop config
+let g:vimrubocop_config = '.rubocop.yml'
+
 
 " ==============================================================================
 " General settings
