@@ -55,8 +55,8 @@ syntax on                 " Enable syntax highlighting
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
 
-" Always run rspec in bundler
-let g:rspec_command = '!bundle exec rspec {spec}'
+" Always run rspec in bundler and dispatch them
+let g:rspec_command = 'Dispatch bundle exec rspec {spec}'
 " Use iTerm2 as rspec runner
 let g:rspec_runner = 'os_x_iterm2'
 
