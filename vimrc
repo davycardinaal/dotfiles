@@ -27,7 +27,6 @@ Plugin 'thoughtbot/vim-rspec'             " Rspec commands
 Plugin 'tpope/vim-dispatch'               " Dispatching commands
 Plugin 'mileszs/ack.vim'                  " Search tool
 Plugin 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
-Plugin 'w0rp/ale'                         " Asynchronous Lint Engine
 
 Plugin 'tpope/vim-haml'                   " syntax highlight .haml
 Plugin 'tpope/vim-markdown'               " syntax highlight .md
