@@ -24,6 +24,7 @@ Plugin 'tpope/vim-repeat'                 " more repeatings with .
 Plugin 'tpope/vim-surround'               " surroundings
 Plugin 'vim-ruby/vim-ruby'                " ruby commands
 Plugin 'thoughtbot/vim-rspec'             " Rspec commands
+Plugin 'tpope/vim-dispatch'               " Dispatching commands
 Plugin 'mileszs/ack.vim'                  " Search tool
 Plugin 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
 
