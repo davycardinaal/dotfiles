@@ -18,6 +18,7 @@ Plugin 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
 Plugin 'tpope/vim-bundler'                " bundle commands
 Plugin 'tpope/vim-fugitive'               " git commands
 Plugin 'tpope/vim-commentary'             " easy commenting
+Plugin 'tpope/vim-endwise'                " auto add 'end'
 Plugin 'tpope/vim-rails'                  " rails commands
 Plugin 'tpope/vim-rake'                   " rake commands
 Plugin 'tpope/vim-repeat'                 " more repeatings with .
