@@ -135,6 +135,7 @@ nnoremap <Leader>tl :TestLast<CR>
 nnoremap <Leader>tg :TestVisit<CR>
 nnoremap <Leader>ve :tabe ~/.vimrc<CR>
 nnoremap <Leader>vi :source ~/.vimrc<CR>:PluginInstall!<CR>
+nnoremap <Leader>vs :source ~/.vimrc<CR>
 nnoremap <Leader>w :w<CR>
 map <Leader>/ gcc
 
