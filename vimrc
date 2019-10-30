@@ -24,7 +24,7 @@ Plugin 'tpope/vim-rake'                   " rake commands
 Plugin 'tpope/vim-repeat'                 " more repeatings with .
 Plugin 'tpope/vim-surround'               " surroundings
 Plugin 'vim-ruby/vim-ruby'                " ruby commands
-Plugin 'thoughtbot/vim-rspec'             " Rspec commands
+Plugin 'janko/vim-test'                   " Test commands
 Plugin 'tpope/vim-dispatch'               " Dispatching commands
 Plugin 'mileszs/ack.vim'                  " Search tool
 Plugin 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
@@ -57,10 +57,8 @@ syntax on                 " Enable syntax highlighting
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
 
-" Always run rspec in bundler and dispatch them
-let g:rspec_command = 'Dispatch bundle exec rspec {spec}'
-" Use iTerm2 as rspec runner
-let g:rspec_runner = 'os_x_iterm2'
+" Run RSpec with bin/rspec
+let test#ruby#use_binstubs = 1
 
 " Set RuboCop config
 let g:vimrubocop_config = '.rubocop.yml'
@@ -129,10 +127,12 @@ nnoremap <Leader>h :nohlsearch<CR>
 nnoremap <Leader>n :cn<CR>
 nnoremap <Leader>p :cp<CR>
 nnoremap <Leader>q :q<CR>
-nnoremap <Leader>sa :call RunAllSpecs()<CR>
-nnoremap <Leader>sf :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>sl :call RunLastSpec()<CR>
-nnoremap <Leader>sn :call RunNearestSpec()<CR>
+nnoremap <Leader>r :redraw!<CR>
+nnoremap <Leader>tn :TestNearest<CR>
+nnoremap <Leader>tf :TestFile<CR>
+nnoremap <Leader>ts :TestSuite<CR>
+nnoremap <Leader>tl :TestLast<CR>
+nnoremap <Leader>tg :TestVisit<CR>
 nnoremap <Leader>ve :tabe ~/.vimrc<CR>
 nnoremap <Leader>vi :source ~/.vimrc<CR>:PluginInstall!<CR>
 nnoremap <Leader>w :w<CR>
