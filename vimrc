@@ -28,6 +28,7 @@ Plugin 'janko/vim-test'                   " Test commands
 Plugin 'tpope/vim-dispatch'               " Dispatching commands
 Plugin 'mileszs/ack.vim'                  " Search tool
 Plugin 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
+Plugin 'dense-analysis/ale'               " Asynchronous Lint Engine
 
 Plugin 'tpope/vim-haml'                   " syntax highlight .haml
 Plugin 'tpope/vim-markdown'               " syntax highlight .md
@@ -62,6 +63,14 @@ let test#ruby#use_binstubs = 1
 
 " Set RuboCop config
 let g:vimrubocop_config = '.rubocop.yml'
+
+
+" ==============================================================================
+" Linters
+" ==============================================================================
+
+let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_fix_on_save = 1
 
 
 " ==============================================================================
