@@ -69,8 +69,9 @@ let g:vimrubocop_config = '.rubocop.yml'
 " Linters
 " ==============================================================================
 
-let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_fixers = {'vue': ['prettier', 'eslint']}
 let g:ale_fix_on_save = 1
+autocmd BufWritePost *.vue ALEFix
 
 
 " ==============================================================================
