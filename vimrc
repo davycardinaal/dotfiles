@@ -70,9 +70,25 @@ let g:vimrubocop_config = '.rubocop.yml'
 " Linters
 " ==============================================================================
 
-let g:ale_fixers = {'vue': ['prettier', 'eslint']}
+let g:ale_linters = {
+\  'vue': ['eslint'],
+\  'python': ['black'],
+\  'javascript': ['eslint']
+\}
+
+let g:ale_fixers = {
+\  'scss': ['prettier'],
+\  'javascript': ['prettier'],
+\  'json': ['prettier'],
+\  'python': ['black'],
+\  'vue': ['prettier', 'eslint']
+\}
+
 let g:ale_fix_on_save = 1
-autocmd BufWritePost *.vue ALEFix
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
 
 
 " ==============================================================================
