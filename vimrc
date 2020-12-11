@@ -156,6 +156,7 @@ nnoremap <Leader>n :cn<CR>
 nnoremap <Leader>p :cp<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>r :redraw!<CR>
+nnoremap <Leader>sw :StripWhitespace<CR>
 nnoremap <Leader>tn :TestNearest<CR>
 nnoremap <Leader>tf :TestFile<CR>
 nnoremap <Leader>ts :TestSuite<CR>
