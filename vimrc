@@ -29,6 +29,7 @@ Plugin 'tpope/vim-dispatch'               " Dispatching commands
 Plugin 'mileszs/ack.vim'                  " Search tool
 Plugin 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
 Plugin 'dense-analysis/ale'               " Asynchronous Lint Engine
+Plugin 'pangloss/vim-javascript'          " React
 
 Plugin 'tpope/vim-haml'                   " syntax highlight .haml
 Plugin 'tpope/vim-markdown'               " syntax highlight .md
