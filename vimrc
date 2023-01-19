@@ -39,6 +39,7 @@ Plugin 'slim-template/vim-slim.git'       " syntax highlight .slim
 Plugin 'leafgarland/typescript-vim'       " syntax highlight .ts
 Plugin 'posva/vim-vue'                    " syntax highlight .vue
 Plugin 'keith/rspec.vim'                  " Better highlighting for rspec
+Plugin 'maxmellon/vim-jsx-pretty'         " Better highlighting for jsx
 
 Plugin 'chriskempson/base16-vim'          " colorscheme
 
@@ -71,6 +72,7 @@ let g:vimrubocop_config = '.rubocop.yml'
 " ==============================================================================
 
 let g:ale_linters = {
+\  'ruby': ['standardrb'],
 \  'vue': ['eslint'],
 \  'python': ['black'],
 \  'javascript': ['eslint']
@@ -81,7 +83,8 @@ let g:ale_fixers = {
 \  'javascript': ['prettier'],
 \  'json': ['prettier'],
 \  'python': ['black'],
-\  'vue': ['prettier', 'eslint']
+\  'vue': ['prettier', 'eslint'],
+\  'ruby': ['prettier']
 \}
 
 let g:ale_fix_on_save = 1
@@ -149,7 +152,7 @@ nnoremap <Leader>bi :Bundle<CR>
 nnoremap <Leader>bs :Bsplit<Space>
 nnoremap <Leader>da :ALEDisable<CR>
 nnoremap <Leader>ex :Explore<CR>
-nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gb :Git blame<CR>
 nnoremap <Leader>gst :Gstatus<CR>
 nnoremap <Leader>h :nohlsearch<CR>
 nnoremap <Leader>n :cn<CR>
