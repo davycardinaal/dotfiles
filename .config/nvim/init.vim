@@ -3,9 +3,7 @@
 " ==============================================================================
 
 call plug#begin()
-
 Plug 'ervandew/supertab'                " tab completion
-Plug 'ngmy/vim-rubocop'                 " rubocop integration
 Plug 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
 Plug 'tpope/vim-bundler'                " bundle commands
 Plug 'tpope/vim-fugitive'               " git commands
@@ -19,22 +17,14 @@ Plug 'vim-ruby/vim-ruby'                " ruby commands
 Plug 'janko/vim-test'                   " Test commands
 Plug 'tpope/vim-dispatch'               " Dispatching commands
 Plug 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
-Plug 'dense-analysis/ale'               " Asynchronous Lint Engine
-Plug 'pangloss/vim-javascript'          " React
-
-
-Plug 'tpope/vim-haml'                   " syntax highlight .haml
-Plug 'tpope/vim-markdown'               " syntax highlight .md
-Plug 'kchmck/vim-coffee-script'         " syntax highlight .coffee
-Plug 'groenewege/vim-less'              " syntax highlight .less
-Plug 'leafgarland/typescript-vim'       " syntax highlight .ts
-Plug 'posva/vim-vue'                    " syntax highlight .vue
-Plug 'keith/rspec.vim'                  " Better highlighting for rspec
-Plug 'maxmellon/vim-jsx-pretty'         " Better highlighting for jsx
 
 Plug 'dracula/vim'
-
-
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'dense-analysis/ale'               " Asynchronous Lint Engine
 call plug#end()
 
 " ==============================================================================
@@ -59,35 +49,34 @@ runtime macros/matchit.vim
 " Run RSpec with bin/rspec
 let test#ruby#use_binstubs = 1
 
-" Set RuboCop config
-let g:vimrubocop_config = '.rubocop.yml'
-
 
 " ==============================================================================
-" Linters
+" Asynchronous Lint Engine
 " ==============================================================================
 
 let g:ale_linters = {
-\  'ruby': ['standardrb'],
+\  '*': ['remove_trailing_lines', 'trim_whitespace'],
+\  'ruby': ['rubocop', 'standardrb'],
 \  'vue': ['eslint'],
 \  'python': ['black'],
 \  'javascript': ['eslint']
 \}
 
 let g:ale_fixers = {
+\  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'scss': ['prettier'],
-\  'javascript': ['prettier'],
+\  'javascript': ['eslint', 'prettier'],
 \  'json': ['prettier'],
 \  'python': ['black'],
-\  'vue': ['prettier', 'eslint'],
-\  'ruby': ['prettier']
+\  'vue': ['eslint', 'prettier'],
+\  'ruby': ['prettier', 'rubocop', 'standardrb']
 \}
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 
 
 " ==============================================================================
@@ -180,14 +169,7 @@ vnoremap <C-c> :w !pbcopy<CR><CR>
 " ==============================================================================
 " Telescope
 " ==============================================================================
-"
 " telescope.nvim is a highly extendable fuzzy finder over lists.
-
-call plug#begin()
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-call plug#end()
 
 " Move up and down through the results using <C-k> and <C-j>
 lua << EOF
@@ -213,3 +195,60 @@ nnoremap <leader>fr <cmd>Telescope resume<cr>
 
 " Search for the string under your cursor with Telescope
 nnoremap F :lua require('telescope.builtin').grep_string()<cr>
+
+
+" ==============================================================================
+" LSP Config
+" ==============================================================================
+" LSP facilitates features like go-to-definition, find-references, hover,
+" completion, rename, format, refactor, etc., using semantic whole-project
+" analysis.
+
+
+" ==============================================================================
+" Treesitter
+" ==============================================================================
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "bash", "c", "comment", "css", "dockerfile", "help",
+  "javascript", "json", "lua", "markdown", "pug", "ruby", "scss", "tsx",
+  "typescript", "vim", "yaml" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- List of parsers to ignore installing (for "all")
+  -- ignore_install = { "javascript" },
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- disable = { "c", "rust" },
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    -- disable = function(lang, buf)
+    --     local max_filesize = 100 * 1024 -- 100 KB
+    --     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+    --     if ok and stats and stats.size > max_filesize then
+    --         return true
+    --     end
+    -- end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
