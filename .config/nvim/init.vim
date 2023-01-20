@@ -18,13 +18,14 @@ Plug 'janko/vim-test'                   " Test commands
 Plug 'tpope/vim-dispatch'               " Dispatching commands
 Plug 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
 
+Plug 'dense-analysis/ale'
 Plug 'dracula/vim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'neovim/nvim-lspconfig'
-Plug 'dense-analysis/ale'               " Asynchronous Lint Engine
 call plug#end()
 
 " ==============================================================================
