@@ -4,7 +4,6 @@
 
 call plug#begin()
 
-Plug 'ctrlpvim/ctrlp.vim'               " full path fuzzy finder
 Plug 'ervandew/supertab'                " tab completion
 Plug 'ngmy/vim-rubocop'                 " rubocop integration
 Plug 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
@@ -19,10 +18,10 @@ Plug 'tpope/vim-surround'               " surroundings
 Plug 'vim-ruby/vim-ruby'                " ruby commands
 Plug 'janko/vim-test'                   " Test commands
 Plug 'tpope/vim-dispatch'               " Dispatching commands
-Plug 'mileszs/ack.vim'                  " Search tool
 Plug 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
 Plug 'dense-analysis/ale'               " Asynchronous Lint Engine
 Plug 'pangloss/vim-javascript'          " React
+
 
 Plug 'tpope/vim-haml'                   " syntax highlight .haml
 Plug 'tpope/vim-markdown'               " syntax highlight .md
@@ -129,14 +128,6 @@ set smarttab                    " Insert blanks (shiftwidth amount) on newline
 set wrap                        " Wrap by default
 set whichwrap=b,s,<,>,[,]       " Cursor keys move from eol to start of next line
 
-" Make CtrlP use ag for listing the files. Way faster and no useless files.
-" Also include hidden files, but not the ones from the gitignore.
-let g:ctrlp_user_command = ['ag %s -l --hidden --nocolor -g ""', '.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_use_caching = 0
-
-" Let's use The Silver Searcher as default search tool
-let g:ackprg = 'ag --vimgrep'
-
 
 " ==============================================================================
 " Leader mappings
@@ -144,7 +135,6 @@ let g:ackprg = 'ag --vimgrep'
 
 let mapleader = ","
 
-nnoremap <Leader>a :Ack<Space>
 nnoremap <Leader>bi :Bundle<CR>
 nnoremap <Leader>bs :Bsplit<Space>
 nnoremap <Leader>da :ALEDisable<CR>
@@ -183,8 +173,43 @@ nnoremap Q gq<CR>
 vnoremap > >gv
 vnoremap < <gv
 
-" Search for word under cursor and open search results
-nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
 " Save text to clipboard in visual mode by hitting ctrl-c
 vnoremap <C-c> :w !pbcopy<CR><CR>
+
+
+" ==============================================================================
+" Telescope
+" ==============================================================================
+"
+" telescope.nvim is a highly extendable fuzzy finder over lists.
+
+call plug#begin()
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+call plug#end()
+
+" Move up and down through the results using <C-k> and <C-j>
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-k>"] = require('telescope.actions').move_selection_previous,
+        ["<C-j>"] = require('telescope.actions').move_selection_next
+      }
+    }
+  }
+}
+EOF
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope git_files<cr>
+nnoremap <leader>fa <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fr <cmd>Telescope resume<cr>
+
+" Search for the string under your cursor with Telescope
+nnoremap F :lua require('telescope.builtin').grep_string()<cr>
