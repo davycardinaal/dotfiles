@@ -26,4 +26,4 @@ Leader key is ","
 
 | Key(s) | Command |
 | ------ | ------- |
-| F      | Telescope: Search for the word under the cursor |
+| K      | Telescope: Search for the word under the cursor |

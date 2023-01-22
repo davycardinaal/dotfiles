@@ -195,7 +195,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fr <cmd>Telescope resume<cr>
 
 " Search for the string under your cursor with Telescope
-nnoremap F :lua require('telescope.builtin').grep_string()<cr>
+nnoremap K :lua require('telescope.builtin').grep_string()<cr>
 
 
 " ==============================================================================
