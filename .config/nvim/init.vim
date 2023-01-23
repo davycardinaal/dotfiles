@@ -25,7 +25,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -237,12 +236,9 @@ EOF
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  -- ensure_installed = { "bash", "c", "comment", "css", "dockerfile", "help",
-  -- "javascript", "json", "lua", "markdown", "pug", "ruby", "scss", "tsx",
-  -- "typescript", "vim", "yaml" },
-  ensure_installed = { "bash", "css", "dockerfile",
-  "javascript", "json", "lua", "markdown", "pug", "ruby", "scss", "tsx",
-  "typescript", "vim", "yaml" },
+  ensure_installed = { "bash", "css", "diff", "dockerfile", "gitcommit",
+  "help", "javascript", "json", "lua", "markdown", "pug", "ruby", "scss",
+  "tsx", "typescript", "vim", "yaml" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
