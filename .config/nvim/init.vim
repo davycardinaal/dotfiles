@@ -3,7 +3,6 @@
 " ==============================================================================
 
 call plug#begin()
-Plug 'ervandew/supertab'                " tab completion
 Plug 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
 Plug 'tpope/vim-bundler'                " bundle commands
 Plug 'tpope/vim-fugitive'               " git commands
@@ -27,17 +26,18 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-" Plug 'hrsh7th/cmp-nvim-lsp'
-" Plug 'hrsh7th/cmp-buffer'
-" Plug 'hrsh7th/cmp-path'
-" Plug 'hrsh7th/cmp-cmdline'
-" Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
-" " For vsnip users.
-" Plug 'hrsh7th/cmp-vsnip'
-" Plug 'hrsh7th/vim-vsnip'
-" Plug 'hrsh7th/vim-vsnip-integ'
-" Plug 'rafamadriz/friendly-snippets'
+" For vsnip users.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+Plug 'lewis6991/hover.nvim'
 
 call plug#end()
 
@@ -155,9 +155,9 @@ nnoremap <Leader>tf :TestFile<CR>
 nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>tl :TestLast<CR>
 nnoremap <Leader>tg :TestVisit<CR>
-nnoremap <Leader>ve :tabe ~/.vimrc<CR>
-nnoremap <Leader>vi :source ~/.vimrc<CR>:PlugInstall!<CR>
-nnoremap <Leader>vs :source ~/.vimrc<CR>
+nnoremap <Leader>ve :tabe ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>vi :source ~/.config/nvim/init.vim<CR>:PlugInstall!<CR>
+nnoremap <Leader>vs :source ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>w :w<CR>
 map <Leader>/ gcc
 
@@ -218,6 +218,16 @@ nnoremap K :lua require('telescope.builtin').grep_string()<cr>
 " completion, rename, format, refactor, etc., using semantic whole-project
 " analysis.
 
+lua << EOF
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    -- Use a sharp border with `FloatBorder` highlights
+    border = "single",
+    -- add the title in hover float window
+    title = "hover"
+  }
+)
+EOF
 
 " ==============================================================================
 " Treesitter
@@ -226,7 +236,10 @@ nnoremap K :lua require('telescope.builtin').grep_string()<cr>
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "bash", "c", "comment", "css", "dockerfile", "help",
+  -- ensure_installed = { "bash", "c", "comment", "css", "dockerfile", "help",
+  -- "javascript", "json", "lua", "markdown", "pug", "ruby", "scss", "tsx",
+  -- "typescript", "vim", "yaml" },
+  ensure_installed = { "bash", "css", "dockerfile",
   "javascript", "json", "lua", "markdown", "pug", "ruby", "scss", "tsx",
   "typescript", "vim", "yaml" },
 
@@ -268,106 +281,160 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 
-" " ==============================================================================
-" " Auto Completion
-" " ==============================================================================
-"
-" set completeopt=menu,menuone,noselect
-"
-" lua <<EOF
-"   -- Set up nvim-cmp.
-"   local cmp = require'cmp'
-"
-"   cmp.setup({
-"     snippet = {
-"       -- REQUIRED - you must specify a snippet engine
-"       expand = function(args)
-"         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-"         -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-"         -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-"         -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-"       end,
-"     },
-"     window = {
-"       -- completion = cmp.config.window.bordered(),
-"       -- documentation = cmp.config.window.bordered(),
-"     },
-"     mapping = cmp.mapping.preset.insert({
-"       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-"       ['<C-f>'] = cmp.mapping.scroll_docs(4),
-"       ['<C-Space>'] = cmp.mapping.complete(),
-"       ['<C-e>'] = cmp.mapping.abort(),
-"       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-"     }),
-"     sources = cmp.config.sources({
-"       { name = 'nvim_lsp' },
-"       { name = 'vsnip' }, -- For vsnip users.
-"       -- { name = 'luasnip' }, -- For luasnip users.
-"       -- { name = 'ultisnips' }, -- For ultisnips users.
-"       -- { name = 'snippy' }, -- For snippy users.
-"     }, {
-"       { name = 'buffer' },
-"     })
-"   })
-"
-"   -- Set configuration for specific filetype.
-"   cmp.setup.filetype('gitcommit', {
-"     sources = cmp.config.sources({
-"       { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-"     }, {
-"       { name = 'buffer' },
-"     })
-"   })
-"
-"   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-"   cmp.setup.cmdline({ '/', '?' }, {
-"     mapping = cmp.mapping.preset.cmdline(),
-"     sources = {
-"       { name = 'buffer' }
-"     }
-"   })
-"
-"   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-"   cmp.setup.cmdline(':', {
-"     mapping = cmp.mapping.preset.cmdline(),
-"     sources = cmp.config.sources({
-"       { name = 'path' }
-"     }, {
-"       { name = 'cmdline' }
-"     })
-"   })
-"
-"   -- Set up lspconfig.
-"   local capabilities = require('cmp_nvim_lsp').default_capabilities()
-"   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-"   -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-"   --   capabilities = capabilities
-"   -- }
-" EOF
-"
-"
-" " Expand
-" imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-" smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-"
-" " Expand or jump
-" imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-" smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-"
-" " Jump forward or backward
-" imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-" smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-" imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-" smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-"
-" " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" " See https://github.com/hrsh7th/vim-vsnip/pull/50
+" ==============================================================================
+" Auto Completion
+" ==============================================================================
+
+set completeopt=menu,menuone,noselect
+
+lua <<EOF
+  -- Set up nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      end,
+    },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif vim.fn["vsnip#available"](1) == 1 then
+          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+        end
+      end, { "i", "s" }),
+
+      ["<S-Tab>"] = cmp.mapping(function()
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+          feedkey("<Plug>(vsnip-jump-prev)", "")
+        end
+      end, { "i", "s" }),
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Set up lspconfig.
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  local servers = { "solargraph", "tsserver" }
+  for _, lsp in pairs(servers) do
+   require('lspconfig')[lsp].setup({
+     capabilities = capabilities
+   })
+  end
+EOF
+
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
 " nmap        s   <Plug>(vsnip-select-text)
 " xmap        s   <Plug>(vsnip-select-text)
 " nmap        S   <Plug>(vsnip-cut-text)
 " xmap        S   <Plug>(vsnip-cut-text)
-"
+
 " let g:vsnip_filetypes = {}
 " let g:vsnip_filetypes.javascriptreact = ['javascript']
 " let g:vsnip_filetypes.typescriptreact = ['typescript']
 " let g:vsnip_filetypes.ruby = ['rails']
+
+
+lua << EOF
+ -- require('hover').register {
+ --    name = 'solargraph',
+ --    enabled = function()
+ --      return true
+ --    end,
+ --    execute = function(done)
+ --      done{lines={'TEST'}, filetype="markdown"}
+ --    end
+ -- }
+
+require("hover").setup {
+            init = function()
+                -- Require providers
+                require("hover.providers.lsp")
+                -- require('hover.providers.gh')
+                -- require('hover.providers.gh_user')
+                -- require('hover.providers.jira')
+                -- require('hover.providers.man')
+                -- require('hover.providers.dictionary')
+            end,
+            preview_opts = {
+                border = nil
+            },
+            -- Whether the contents of a currently open hover window should be moved
+            -- to a :h preview-window when pressing the hover keymap.
+            preview_window = false,
+            title = true
+        }
+EOF
+nnoremap sd :lua require('hover').hover()<cr>

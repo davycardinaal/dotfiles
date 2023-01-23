@@ -9,6 +9,12 @@ Telescope needs:
 brew install ripgrep
 ```
 
+Install LSP servers:
+```bash
+gem install solargraph
+npm install -g typescript typescript-language-server
+```
+
 ### Leader mappings
 
 Leader key is ","
