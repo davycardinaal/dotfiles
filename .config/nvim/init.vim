@@ -157,7 +157,7 @@ nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>tl :TestLast<CR>
 nnoremap <Leader>tg :TestVisit<CR>
 nnoremap <Leader>ve :tabe ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>vi :source ~/.config/nvim/init.vim<CR>:PlugInstall!<CR>
+nnoremap <Leader>vi :source ~/.config/nvim/init.vim<CR>:PlugInstall<CR>
 nnoremap <Leader>vs :source ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>w :w<CR>
 map <Leader>/ gcc
