@@ -3,19 +3,20 @@
 " ==============================================================================
 
 call plug#begin()
+Plug 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
+Plug 'digitaltoad/vim-pug'              " syntax highlight for pug language
+Plug 'janko/vim-test'                   " Test commands
 Plug 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
 Plug 'tpope/vim-bundler'                " bundle commands
-Plug 'tpope/vim-fugitive'               " git commands
 Plug 'tpope/vim-commentary'             " easy commenting
+Plug 'tpope/vim-dispatch'               " Dispatching commands
 Plug 'tpope/vim-endwise'                " auto add 'end'
+Plug 'tpope/vim-fugitive'               " git commands
 Plug 'tpope/vim-rails'                  " rails commands
 Plug 'tpope/vim-rake'                   " rake commands
 Plug 'tpope/vim-repeat'                 " more repeatings with .
 Plug 'tpope/vim-surround'               " surroundings
 Plug 'vim-ruby/vim-ruby'                " ruby commands
-Plug 'janko/vim-test'                   " Test commands
-Plug 'tpope/vim-dispatch'               " Dispatching commands
-Plug 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
 
 Plug 'dense-analysis/ale'
 Plug 'dracula/vim'
