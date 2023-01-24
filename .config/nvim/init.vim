@@ -220,14 +220,27 @@ nnoremap K :lua require('telescope.builtin').grep_string()<cr>
 " analysis.
 
 lua << EOF
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
-    -- Use a sharp border with `FloatBorder` highlights
-    border = "single",
-    -- add the title in hover float window
-    title = "hover"
-  }
-)
+  -- Setup Ruby Solargraph
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  require('lspconfig').solargraph.setup({
+    capabilities = capabilities
+  })
+
+  -- Setup Typescript Language Server
+  require('lspconfig').tsserver.setup({
+    capabilities = capabilities
+  })
+
+  -- Setup Volar for vue
+  require'lspconfig'.volar.setup({
+  capabilities = capabilities,
+  filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
+  init_options = {
+    typescript = {
+      tsdk = '/usr/local/lib/node_modules/typescript/lib'
+    }
+    }
+  })
 EOF
 
 " ==============================================================================
@@ -366,15 +379,6 @@ lua <<EOF
       { name = 'cmdline' }
     })
   })
-
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  local servers = { "solargraph", "tsserver" }
-  for _, lsp in pairs(servers) do
-   require('lspconfig')[lsp].setup({
-     capabilities = capabilities
-   })
-  end
 EOF
 
 
@@ -416,22 +420,61 @@ lua << EOF
  --    end
  -- }
 
-require("hover").setup {
-            init = function()
-                -- Require providers
-                require("hover.providers.lsp")
-                -- require('hover.providers.gh')
-                -- require('hover.providers.gh_user')
-                -- require('hover.providers.jira')
-                -- require('hover.providers.man')
-                -- require('hover.providers.dictionary')
-            end,
-            preview_opts = {
-                border = nil
-            },
-            -- Whether the contents of a currently open hover window should be moved
-            -- to a :h preview-window when pressing the hover keymap.
-            preview_window = false,
-            title = true
-        }
+-- Register the Jobport JIRA helper
+local job = require('hover.async.job').job
+local issue_pattern = '%u%u%u+-%d+'
+
+local function enabled()
+  -- Match 2 or more uppercase letters followed by a '-' and 1 or more digits.
+  return vim.fn.expand('<cWORD>'):match(issue_pattern) ~= nil
+end
+
+local function execute(done)
+  local query = vim.fn.expand('<cWORD>'):match(issue_pattern)
+
+  job({'jira', 'view', query}, function(result)
+    if result == nil then
+      done(false)
+      return
+    end
+
+    local lines = {}
+    for line in result:gmatch('[^\r\n]+') do
+      -- Remove lines starting with \27, which is not formatted well and
+      -- is only there for help/context/suggestion lines anyway.
+      if line:find('^\27') == nil then
+        table.insert(lines, line)
+      end
+    end
+
+    done {lines = lines, filetype = 'markdown'}
+  end)
+end
+
+require('hover').register {
+  name = 'Jira',
+  priority = 175,
+  enabled = enabled,
+  execute = execute
+}
+
+-- Setup the hover plugin
+require("hover").setup({
+  init = function()
+      -- Require providers
+      require("hover.providers.lsp")
+      -- require('hover.providers.gh')
+      -- require('hover.providers.gh_user')
+      -- require('hover.providers.jira')
+      -- require('hover.providers.man')
+      -- require('hover.providers.dictionary')
+  end,
+  preview_opts = {
+      border = nil
+  },
+  -- Whether the contents of a currently open hover window should be moved
+  -- to a :h preview-window when pressing the hover keymap.
+  preview_window = false,
+  title = true
+})
 EOF
