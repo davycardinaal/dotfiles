@@ -138,9 +138,10 @@ set whichwrap=b,s,<,>,[,]       " Cursor keys move from eol to start of next lin
 
 let mapleader = ","
 
+nnoremap <Leader>ad :ALEDisable<CR>
 nnoremap <Leader>bi :Bundle<CR>
 nnoremap <Leader>bs :Bsplit<Space>
-nnoremap <Leader>da :ALEDisable<CR>
+nnoremap <leader>d :lua require('hover').hover()<cr>
 nnoremap <Leader>ex :Explore<CR>
 nnoremap <Leader>gb :Git blame<CR>
 nnoremap <Leader>gst :Gstatus<CR>
@@ -434,4 +435,3 @@ require("hover").setup {
             title = true
         }
 EOF
-nnoremap sd :lua require('hover').hover()<cr>
