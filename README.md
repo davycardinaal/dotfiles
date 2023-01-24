@@ -27,7 +27,7 @@ brew install ripgrep
 
 Install LSP servers:
 ```bash
-gem install solargraph
+gem install -N solargraph
 npm install -g typescript typescript-language-server
 ```
 
