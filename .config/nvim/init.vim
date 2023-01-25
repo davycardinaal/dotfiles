@@ -186,23 +186,29 @@ vnoremap <C-c> :w !pbcopy<CR><CR>
 " ==============================================================================
 " telescope.nvim is a highly extendable fuzzy finder over lists.
 
-" Move up and down through the results using <C-k> and <C-j>
 lua << EOF
 require('telescope').setup{
   defaults = {
     mappings = {
       i = {
         ["<C-k>"] = require('telescope.actions').move_selection_previous,
-        ["<C-j>"] = require('telescope.actions').move_selection_next
+        ["<C-j>"] = require('telescope.actions').move_selection_next,
+        ["<C-a>"] = { "<home>", type = "command" },
+        ["<C-e>"] = { "<end>", type = "command" },
       }
     }
-  }
+  },
+  pickers = {
+    find_files = {
+      -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+      find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+    },
+  },
 }
 EOF
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope git_files<cr>
 nnoremap <leader>fa <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
