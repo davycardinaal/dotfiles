@@ -100,6 +100,7 @@ let g:ale_lint_on_enter = 1
 
 language en_US
 
+set clipboard+=unnamedplus      " Fix clipboard for neovim
 set nobackup                    " Don't keep backups of files
 set nowritebackup               " Don't make backups when writing to files
 set history=500                 " keep 500 lines of command line history
