@@ -19,6 +19,7 @@ Plug 'tpope/vim-surround'               " surroundings
 Plug 'vim-ruby/vim-ruby'                " ruby commands
 
 " New plugins after migrating to neovim
+Plug 'RRethy/nvim-treesitter-endwise'
 Plug 'dense-analysis/ale'
 Plug 'dracula/vim'
 Plug 'hrsh7th/cmp-buffer'
@@ -257,9 +258,7 @@ EOF
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "bash", "css", "diff", "dockerfile", "gitcommit",
-  "help", "javascript", "json", "lua", "markdown", "pug", "ruby", "scss",
-  "tsx", "typescript", "vim", "yaml" },
+  ensure_installed = "all",
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -294,6 +293,11 @@ require'nvim-treesitter.configs'.setup {
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
+  },
+
+  -- Use endwise to automatically add `end` for Ruby
+  endwise = {
+    enable = true,
   },
 }
 EOF
