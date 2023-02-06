@@ -61,6 +61,7 @@ runtime macros/matchit.vim
 
 " Run RSpec with bin/rspec
 let test#ruby#use_binstubs = 1
+let test#strategy = "neovim"
 
 
 " ==============================================================================
