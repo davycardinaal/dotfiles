@@ -37,6 +37,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-telescope/telescope-fzf-native.nvim', {'run': 'make'}
+Plug 'tzachar/fuzzy.nvim', {'requires': 'nvim-telescope/telescope-fzf-native.nvim'}
 
 call plug#end()
 
@@ -255,7 +257,7 @@ lua << EOF
   })
 
   -- Setup Volar for vue
-  require'lspconfig'.volar.setup({
+  require('lspconfig').volar.setup({
   capabilities = capabilities,
   filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
   init_options = {
@@ -381,6 +383,7 @@ lua <<EOF
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'fuzzy_buffer' },
       { name = 'vsnip' }, -- For vsnip users.
       -- { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
@@ -403,7 +406,7 @@ lua <<EOF
   cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      { name = 'buffer' }
+      { name = 'fuzzy_buffer' }
     }
   })
 
