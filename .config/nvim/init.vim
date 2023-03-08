@@ -61,7 +61,12 @@ runtime macros/matchit.vim
 
 " Run RSpec with bin/rspec
 let test#ruby#use_binstubs = 1
-let test#strategy = "neovim"
+
+" Run javascript with vitest
+let g:test#javascript#runner = "vitest"
+
+" Use the dispatch strategy
+let test#strategy = "dispatch"
 
 
 " ==============================================================================
@@ -82,9 +87,11 @@ let g:ale_fixers = {
 \  'javascript': ['eslint', 'prettier'],
 \  'json': ['prettier'],
 \  'python': ['black'],
-\  'vue': ['eslint', 'prettier'],
-\  'ruby': ['prettier', 'rubocop', 'standardrb']
+\  'ruby': ['prettier', 'rubocop', 'standardrb'],
+\  'vue': ['eslint'],
 \}
+
+let g:ale_ruby_rubocop_options = "--config .rubocop.yml"
 
 let g:ale_enabled = 1
 let g:ale_fix_on_save = 1
@@ -92,6 +99,12 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 1
+
+" Disable and enable fixers
+command! ALEDisableFixers       let g:ale_fix_on_save=0
+command! ALEEnableFixers        let g:ale_fix_on_save=1
+command! ALEDisableFixersBuffer let b:ale_fix_on_save=0
+command! ALEEnableFixersBuffer  let b:ale_fix_on_save=1
 
 
 " ==============================================================================
