@@ -361,17 +361,17 @@ lua <<EOF
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif vim.fn["vsnip#available"](1) == 1 then
-          feedkey("<Plug>(vsnip-expand-or-jump)", "")
-        elseif has_words_before() then
-          cmp.complete()
-        else
-          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-        end
-      end, { "i", "s" }),
+      -- ["<Tab>"] = cmp.mapping(function(fallback)
+      --   if cmp.visible() then
+      --     cmp.select_next_item()
+      --   elseif vim.fn["vsnip#available"](2) == 1 then
+      --     feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      --   elseif has_words_before() then
+      --     cmp.complete()
+      --   else
+      --     fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+      --   end
+      -- end, { "i", "s" }),
 
       ["<S-Tab>"] = cmp.mapping(function()
         if cmp.visible() then
@@ -517,4 +517,23 @@ require("hover").setup({
   preview_window = false,
   title = true
 })
+EOF
+
+
+" ==============================================================================
+" Copilot
+" ==============================================================================
+
+lua << EOF
+vim.g.copilot_assume_mapped = true
+
+-- Accept copilot suggestion with Ctrl-A
+vim.api.nvim_set_keymap("i", "<C-A>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
+vim.g.copilot_filetypes = {
+  ["*"] = false,
+  -- ["javascript"] = true,
+  -- ["typescript"] = true,
+  -- ["ruby"] = true,
+}
 EOF
