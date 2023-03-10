@@ -88,12 +88,11 @@ let test#strategy = "dispatch"
 
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
-\  'javascript': ['eslint', 'prettier'],
-\  'json': ['prettier'],
-\  'python': ['black'],
+\  'javascript': ['eslint'],
+\  'json': ['eslint'],
 \  'ruby': ['standardrb', 'rubocop'],
-\  'scss': ['prettier'],
-\  'vue': ['eslint'],
+\  'scss': ['eslint'],
+\  'vue': ['eslint', 'volar'],
 \}
 
 let g:ale_ruby_rubocop_options = "--config .rubocop.yml"
