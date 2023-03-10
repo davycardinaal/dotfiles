@@ -37,6 +37,31 @@ After opening `nvim` for the first time, you need to install the plugins with:
 :PlugInstall
 ```
 
+#### GitHub Copilot
+
+GitHub recommends that you install the GitHub Copilot plugin with Neovim's
+built-in plugin manager. Alternatively, you can use a plugin manager of your
+choice to install github/copilot.vim.
+
+To install GitHub Copilot with Neovim's built-in plugin manager, enter the following command in Terminal.
+
+```bash
+git clone https://github.com/github/copilot.vim \
+   ~/.config/nvim/pack/github/start/copilot.vim
+```
+
+To configure GitHub Copilot, open Neovim and enter the following command.
+
+```vim
+:Copilot setup
+```
+
+Enable GitHub Copilot in your Neovim configuration, or with the Neovim command.
+
+```vim
+:Copilot enable
+```
+
 ### Leader mappings
 
 Leader key is ","
