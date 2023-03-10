@@ -23,7 +23,6 @@ Plug 'RRethy/nvim-treesitter-endwise'
 Plug 'dense-analysis/ale'
 Plug 'dracula/vim'
 Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-vsnip'
@@ -35,10 +34,13 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', {'run': 'make'}
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-telescope/telescope-fzf-native.nvim', {'run': 'make'}
+Plug 'onsails/lspkind.nvim'
 Plug 'tzachar/fuzzy.nvim', {'requires': 'nvim-telescope/telescope-fzf-native.nvim'}
+Plug 'zbirenbaum/copilot.lua'
+Plug 'zbirenbaum/copilot-cmp'
 
 call plug#end()
 
@@ -331,16 +333,15 @@ lua <<EOF
   -- Set up nvim-cmp.
   local cmp = require'cmp'
 
-  -- Set up for Super-Tab like mapping
-  local has_words_before = function()
-    unpack = unpack or table.unpack
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-  end
   local feedkey = function(key, mode)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
   end
 
+  local has_words_before = function()
+    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+  end
 
   cmp.setup({
     snippet = {
@@ -361,7 +362,18 @@ lua <<EOF
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({
+        -- behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      }),
+      ["<Tab>"] = vim.schedule_wrap(function(fallback)
+        if cmp.visible() and has_words_before() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end),
+
       -- ["<Tab>"] = cmp.mapping(function(fallback)
       --   if cmp.visible() then
       --     cmp.select_next_item()
@@ -383,12 +395,10 @@ lua <<EOF
       end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'fuzzy_buffer' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
+      { name = 'copilot', group_index = 2 },
+      { name = 'nvim_lsp', group_index = 2 },
+      { name = 'fuzzy_buffer', group_index = 2 },
+      { name = 'vsnip', group_index = 2 },
     }, {
       { name = 'buffer' },
     })
@@ -526,15 +536,24 @@ EOF
 " ==============================================================================
 
 lua << EOF
-vim.g.copilot_assume_mapped = true
+require('copilot').setup({
+  panel = { enabled = false },
+  suggestion = { enabled = false },
+  filetypes = {
+    javascript = true,
+    typescript = true,
+    ruby = true,
+    ["*"] = false,
+  },
+  copilot_node_command = 'node',
+  server_opts_overrides = {},
+})
 
--- Accept copilot suggestion with Ctrl-A
-vim.api.nvim_set_keymap("i", "<C-A>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-
-vim.g.copilot_filetypes = {
-  ["*"] = false,
-  ["javascript"] = true,
-  ["typescript"] = true,
-  ["ruby"] = true,
-}
+require('copilot_cmp').setup({
+  formatters = {
+    label = require("copilot_cmp.format").format_label_text,
+    insert_text = require("copilot_cmp.format").format_insert_text,
+    preview = require("copilot_cmp.format").deindent,
+  },
+})
 EOF
