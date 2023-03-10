@@ -77,7 +77,8 @@ let test#strategy = "dispatch"
 
 let g:ale_linters = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
-\  'ruby': ['rubocop', 'standardrb'],
+\  'ruby': ['standardrb', 'rubocop'],
+\  'yaml': ['actionlint'],
 \  'vue': ['eslint'],
 \  'python': ['black'],
 \  'javascript': ['eslint']
@@ -85,11 +86,11 @@ let g:ale_linters = {
 
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
-\  'scss': ['prettier'],
 \  'javascript': ['eslint', 'prettier'],
 \  'json': ['prettier'],
 \  'python': ['black'],
-\  'ruby': ['prettier', 'rubocop', 'standardrb'],
+\  'ruby': ['standardrb', 'rubocop'],
+\  'scss': ['prettier'],
 \  'vue': ['eslint'],
 \}
 
