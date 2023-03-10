@@ -77,14 +77,14 @@ let test#strategy = "dispatch"
 " Asynchronous Lint Engine
 " ==============================================================================
 
-let g:ale_linters = {
-\  '*': ['remove_trailing_lines', 'trim_whitespace'],
-\  'ruby': ['standardrb', 'rubocop'],
-\  'yaml': ['actionlint'],
-\  'vue': ['eslint'],
-\  'python': ['black'],
-\  'javascript': ['eslint']
-\}
+" let g:ale_linters = {
+" \  '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \  'ruby': ['standardrb', 'rubocop'],
+" \  'yaml': ['actionlint'],
+" \  'vue': ['eslint'],
+" \  'python': ['black'],
+" \  'javascript': ['eslint']
+" \}
 
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -100,10 +100,12 @@ let g:ale_ruby_rubocop_options = "--config .rubocop.yml"
 
 let g:ale_enabled = 1
 let g:ale_fix_on_save = 1
-let g:ale_lint_on_save = 1
+let g:ale_lint_on_save = 0
+" let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 1
+let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_enter = 1
 
 " Disable and enable fixers
 command! ALEDisableFixers       let g:ale_fix_on_save=0
