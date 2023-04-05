@@ -30,8 +30,12 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'lewis6991/hover.nvim'
+
+Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'metakirby5/codi.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
@@ -44,6 +48,7 @@ Plug 'zbirenbaum/copilot.lua'
 Plug 'zbirenbaum/copilot-cmp'
 
 call plug#end()
+
 
 " ==============================================================================
 " Colors
@@ -78,22 +83,22 @@ let test#strategy = "dispatch"
 " Asynchronous Lint Engine
 " ==============================================================================
 
-" let g:ale_linters = {
-" \  '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \  'ruby': ['standardrb', 'rubocop'],
-" \  'yaml': ['actionlint'],
-" \  'vue': ['eslint'],
-" \  'python': ['black'],
-" \  'javascript': ['eslint']
-" \}
+let g:ale_linters = {
+\  '*': ['remove_trailing_lines', 'trim_whitespace'],
+\  'ruby': ['standardrb', 'rubocop'],
+\  'yaml': ['actionlint'],
+\  'vue': ['eslint'],
+\  'javascript': ['eslint'],
+\  'typescript': ['eslint']
+\}
 
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'javascript': ['eslint'],
-\  'json': ['eslint'],
-\  'ruby': ['standardrb', 'rubocop'],
-\  'scss': ['eslint'],
-\  'vue': ['eslint', 'volar'],
+\  'typescript': ['eslint'],
+\  'json': ['prettier'],
+\  'ruby': ['rubocop', 'standardrb'],
+\  'vue': ['eslint'],
 \}
 
 let g:ale_ruby_rubocop_options = "--config .rubocop.yml"
@@ -106,6 +111,8 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 " let g:ale_lint_on_enter = 1
+
+let g:ale_cache_executable_check_failures = 1
 
 " Disable and enable fixers
 command! ALEDisableFixers       let g:ale_fix_on_save=0
@@ -163,9 +170,16 @@ set whichwrap=b,s,<,>,[,]       " Cursor keys move from eol to start of next lin
 let mapleader = ","
 
 nnoremap <Leader>ad :ALEDisable<CR>
+nnoremap <Leader>al :ALELint<CR>
 nnoremap <Leader>bi :Bundle<CR>
 nnoremap <Leader>bs :Bsplit<Space>
-nnoremap <leader>d :lua require('hover').hover()<cr>
+
+nnoremap <silent> gh :Lspsaga lsp_finder<CR>
+nnoremap <Leader>d :Lspsaga hover_doc<CR>
+nnoremap <Leader>sa :Lspsaga code_action<CR>
+nnoremap <Leader>sd :Lspsaga show_cursor_diagnostics<CR>
+nnoremap <Leader>sp :Lspsaga peek_definition<CR>
+
 nnoremap <Leader>ex :Explore<CR>
 nnoremap <Leader>gb :Git blame<CR>
 nnoremap <Leader>gst :Gstatus<CR>
@@ -264,12 +278,7 @@ lua << EOF
   -- Setup Volar for vue
   require('lspconfig').volar.setup({
     capabilities = capabilities,
-    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
-    init_options = {
-      typescript = {
-        tsdk = '/usr/local/lib/node_modules/typescript/lib'
-      }
-    }
+    filetypes = {'vue', 'json'},
   })
 EOF
 
@@ -280,7 +289,10 @@ EOF
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = "all",
+  -- ensure_installed = "all",
+  ensure_installed = { "bash", "css", "diff", "dockerfile", "gitcommit",
+  "help", "javascript", "json", "lua", "markdown", "pug", "ruby", "scss",
+  "tsx", "typescript", "vim", "vue", "yaml" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -364,29 +376,18 @@ lua <<EOF
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      }),
-      ["<Tab>"] = vim.schedule_wrap(function(fallback)
-        if cmp.visible() and has_words_before() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif vim.fn["vsnip#available"](2) == 1 then
+          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+        elseif has_words_before() then
+          cmp.complete()
         else
-          fallback()
+          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
         end
-      end),
-
-      -- ["<Tab>"] = cmp.mapping(function(fallback)
-      --   if cmp.visible() then
-      --     cmp.select_next_item()
-      --   elseif vim.fn["vsnip#available"](2) == 1 then
-      --     feedkey("<Plug>(vsnip-expand-or-jump)", "")
-      --   elseif has_words_before() then
-      --     cmp.complete()
-      --   else
-      --     fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-      --   end
-      -- end, { "i", "s" }),
+      end, { "i", "s" }),
 
       ["<S-Tab>"] = cmp.mapping(function()
         if cmp.visible() then
@@ -461,77 +462,27 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 " let g:vsnip_filetypes.typescriptreact = ['typescript']
 " let g:vsnip_filetypes.ruby = ['rails']
 
+" ==============================================================================
+" Lspsaga
+" ==============================================================================
 
-lua << EOF
- -- require('hover').register {
- --    name = 'solargraph',
- --    enabled = function()
- --      return true
- --    end,
- --    execute = function(done)
- --      done{lines={'TEST'}, filetype="markdown"}
- --    end
- -- }
+lua <<EOF
+local saga = require('lspsaga')
 
--- Register the Jobport JIRA helper
-local job = require('hover.async.job').job
-local issue_pattern = '%u%u%u+-%d+'
-
-local function enabled()
-  -- Match 2 or more uppercase letters followed by a '-' and 1 or more digits.
-  return vim.fn.expand('<cWORD>'):match(issue_pattern) ~= nil
-end
-
-local function execute(done)
-  local query = vim.fn.expand('<cWORD>'):match(issue_pattern)
-
-  job({'jira', 'view', query}, function(result)
-    if result == nil then
-      done(false)
-      return
-    end
-
-    local lines = {}
-    for line in result:gmatch('[^\r\n]+') do
-      -- Remove lines starting with \27, which is not formatted well and
-      -- is only there for help/context/suggestion lines anyway.
-      if line:find('^\27') == nil then
-        table.insert(lines, line)
-      end
-    end
-
-    done {lines = lines, filetype = 'markdown'}
-  end)
-end
-
-require('hover').register {
-  name = 'Jira',
-  priority = 175,
-  enabled = enabled,
-  execute = execute
-}
-
--- Setup the hover plugin
-require("hover").setup({
-  init = function()
-      -- Require providers
-      require("hover.providers.lsp")
-      -- require('hover.providers.gh')
-      -- require('hover.providers.gh_user')
-      -- require('hover.providers.jira')
-      -- require('hover.providers.man')
-      -- require('hover.providers.dictionary')
-  end,
-  preview_opts = {
-      border = nil
+saga.setup({
+  debug = true,
+  symbol_in_winbar = {
+    enable = false,
   },
-  -- Whether the contents of a currently open hover window should be moved
-  -- to a :h preview-window when pressing the hover keymap.
-  preview_window = false,
-  title = true
+  use_saga_diagnostic_sign = false,
+  finder_action_keys = {
+    open = "o",
+    vsplit = "v",
+    split = "s",
+    quit = {"q", [[\<ESC>]]}
+  }
 })
 EOF
-
 
 " ==============================================================================
 " Copilot
@@ -557,5 +508,48 @@ require('copilot_cmp').setup({
     insert_text = require("copilot_cmp.format").format_insert_text,
     preview = require("copilot_cmp.format").deindent,
   },
+})
+EOF
+
+
+lua << EOF
+require('nvim-web-devicons').setup({
+ override_by_extension = {
+  ["spec.js"] = {
+    icon = "",
+    color = "#F0DB4F",
+    name = "SpecJavascript"
+  },
+  ["js"] = {
+    icon = "",
+    color = "#F0DB4F",
+    name = "Javascript"
+  },
+  ["less"] = {
+    icon = "",
+    color = "#5468ff",
+    name = "Less"
+  },
+  ["rb"] = {
+    icon = "",
+    color = "#D51F06",
+    name = "Ruby"
+  },
+  ["sh"] = {
+    icon = "",
+    color = "#007acc",
+    name = "Sh"
+  },
+  ["ts"] = {
+    icon = "",
+    color = "#007acc",
+    name = "Typescript"
+  },
+  ["vue"] = {
+    icon = "",
+    color = "#41B883",
+    name = "Vue"
+  },
+ }
 })
 EOF
