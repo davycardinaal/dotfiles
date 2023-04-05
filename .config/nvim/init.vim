@@ -278,12 +278,7 @@ lua << EOF
   -- Setup Volar for vue
   require('lspconfig').volar.setup({
     capabilities = capabilities,
-    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
-    init_options = {
-      typescript = {
-        tsdk = '/usr/local/lib/node_modules/typescript/lib'
-      }
-    }
+    filetypes = {'vue', 'json'},
   })
 EOF
 
