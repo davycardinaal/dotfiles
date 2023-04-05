@@ -83,22 +83,22 @@ let test#strategy = "dispatch"
 " Asynchronous Lint Engine
 " ==============================================================================
 
-" let g:ale_linters = {
-" \  '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \  'ruby': ['standardrb', 'rubocop'],
-" \  'yaml': ['actionlint'],
-" \  'vue': ['eslint'],
-" \  'python': ['black'],
-" \  'javascript': ['eslint']
-" \}
+let g:ale_linters = {
+\  '*': ['remove_trailing_lines', 'trim_whitespace'],
+\  'ruby': ['standardrb', 'rubocop'],
+\  'yaml': ['actionlint'],
+\  'vue': ['eslint'],
+\  'javascript': ['eslint'],
+\  'typescript': ['eslint']
+\}
 
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'javascript': ['eslint'],
-\  'json': ['eslint'],
-\  'ruby': ['standardrb', 'rubocop'],
-\  'scss': ['eslint'],
-\  'vue': ['eslint', 'volar'],
+\  'typescript': ['eslint'],
+\  'json': ['prettier'],
+\  'ruby': ['rubocop', 'standardrb'],
+\  'vue': ['eslint'],
 \}
 
 let g:ale_ruby_rubocop_options = "--config .rubocop.yml"
@@ -111,6 +111,8 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 " let g:ale_lint_on_enter = 1
+
+let g:ale_cache_executable_check_failures = 1
 
 " Disable and enable fixers
 command! ALEDisableFixers       let g:ale_fix_on_save=0
@@ -168,6 +170,7 @@ set whichwrap=b,s,<,>,[,]       " Cursor keys move from eol to start of next lin
 let mapleader = ","
 
 nnoremap <Leader>ad :ALEDisable<CR>
+nnoremap <Leader>al :ALELint<CR>
 nnoremap <Leader>bi :Bundle<CR>
 nnoremap <Leader>bs :Bsplit<Space>
 
