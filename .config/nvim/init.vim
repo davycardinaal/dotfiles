@@ -376,29 +376,18 @@ lua <<EOF
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      }),
-      ["<Tab>"] = vim.schedule_wrap(function(fallback)
-        if cmp.visible() and has_words_before() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif vim.fn["vsnip#available"](2) == 1 then
+          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+        elseif has_words_before() then
+          cmp.complete()
         else
-          fallback()
+          fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
         end
-      end),
-
-      -- ["<Tab>"] = cmp.mapping(function(fallback)
-      --   if cmp.visible() then
-      --     cmp.select_next_item()
-      --   elseif vim.fn["vsnip#available"](2) == 1 then
-      --     feedkey("<Plug>(vsnip-expand-or-jump)", "")
-      --   elseif has_words_before() then
-      --     cmp.complete()
-      --   else
-      --     fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-      --   end
-      -- end, { "i", "s" }),
+      end, { "i", "s" }),
 
       ["<S-Tab>"] = cmp.mapping(function()
         if cmp.visible() then
