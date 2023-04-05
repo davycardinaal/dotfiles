@@ -30,7 +30,9 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'lewis6991/hover.nvim'
+
+Plug 'glepnir/lspsaga.nvim'
+
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'neovim/nvim-lspconfig'
@@ -44,6 +46,7 @@ Plug 'zbirenbaum/copilot.lua'
 Plug 'zbirenbaum/copilot-cmp'
 
 call plug#end()
+
 
 " ==============================================================================
 " Colors
@@ -165,7 +168,13 @@ let mapleader = ","
 nnoremap <Leader>ad :ALEDisable<CR>
 nnoremap <Leader>bi :Bundle<CR>
 nnoremap <Leader>bs :Bsplit<Space>
-nnoremap <leader>d :lua require('hover').hover()<cr>
+
+nnoremap <silent> gh :Lspsaga lsp_finder<CR>
+nnoremap <Leader>d :Lspsaga hover_doc<CR>
+nnoremap <Leader>sa :Lspsaga code_action<CR>
+nnoremap <Leader>sd :Lspsaga show_cursor_diagnostics<CR>
+nnoremap <Leader>sp :Lspsaga peek_definition<CR>
+
 nnoremap <Leader>ex :Explore<CR>
 nnoremap <Leader>gb :Git blame<CR>
 nnoremap <Leader>gst :Gstatus<CR>
@@ -461,77 +470,27 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 " let g:vsnip_filetypes.typescriptreact = ['typescript']
 " let g:vsnip_filetypes.ruby = ['rails']
 
+" ==============================================================================
+" Lspsaga
+" ==============================================================================
 
-lua << EOF
- -- require('hover').register {
- --    name = 'solargraph',
- --    enabled = function()
- --      return true
- --    end,
- --    execute = function(done)
- --      done{lines={'TEST'}, filetype="markdown"}
- --    end
- -- }
+lua <<EOF
+local saga = require('lspsaga')
 
--- Register the Jobport JIRA helper
-local job = require('hover.async.job').job
-local issue_pattern = '%u%u%u+-%d+'
-
-local function enabled()
-  -- Match 2 or more uppercase letters followed by a '-' and 1 or more digits.
-  return vim.fn.expand('<cWORD>'):match(issue_pattern) ~= nil
-end
-
-local function execute(done)
-  local query = vim.fn.expand('<cWORD>'):match(issue_pattern)
-
-  job({'jira', 'view', query}, function(result)
-    if result == nil then
-      done(false)
-      return
-    end
-
-    local lines = {}
-    for line in result:gmatch('[^\r\n]+') do
-      -- Remove lines starting with \27, which is not formatted well and
-      -- is only there for help/context/suggestion lines anyway.
-      if line:find('^\27') == nil then
-        table.insert(lines, line)
-      end
-    end
-
-    done {lines = lines, filetype = 'markdown'}
-  end)
-end
-
-require('hover').register {
-  name = 'Jira',
-  priority = 175,
-  enabled = enabled,
-  execute = execute
-}
-
--- Setup the hover plugin
-require("hover").setup({
-  init = function()
-      -- Require providers
-      require("hover.providers.lsp")
-      -- require('hover.providers.gh')
-      -- require('hover.providers.gh_user')
-      -- require('hover.providers.jira')
-      -- require('hover.providers.man')
-      -- require('hover.providers.dictionary')
-  end,
-  preview_opts = {
-      border = nil
+saga.setup({
+  debug = true,
+  symbol_in_winbar = {
+    enable = false,
   },
-  -- Whether the contents of a currently open hover window should be moved
-  -- to a :h preview-window when pressing the hover keymap.
-  preview_window = false,
-  title = true
+  use_saga_diagnostic_sign = false,
+  finder_action_keys = {
+    open = "o",
+    vsplit = "v",
+    split = "s",
+    quit = {"q", [[\<ESC>]]}
+  }
 })
 EOF
-
 
 " ==============================================================================
 " Copilot
