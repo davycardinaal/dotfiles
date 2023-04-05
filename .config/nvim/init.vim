@@ -32,6 +32,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
 Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
 
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'metakirby5/codi.vim'
@@ -517,5 +518,48 @@ require('copilot_cmp').setup({
     insert_text = require("copilot_cmp.format").format_insert_text,
     preview = require("copilot_cmp.format").deindent,
   },
+})
+EOF
+
+
+lua << EOF
+require('nvim-web-devicons').setup({
+ override_by_extension = {
+  ["spec.js"] = {
+    icon = "",
+    color = "#F0DB4F",
+    name = "SpecJavascript"
+  },
+  ["js"] = {
+    icon = "",
+    color = "#F0DB4F",
+    name = "Javascript"
+  },
+  ["less"] = {
+    icon = "",
+    color = "#5468ff",
+    name = "Less"
+  },
+  ["rb"] = {
+    icon = "",
+    color = "#D51F06",
+    name = "Ruby"
+  },
+  ["sh"] = {
+    icon = "",
+    color = "#007acc",
+    name = "Sh"
+  },
+  ["ts"] = {
+    icon = "",
+    color = "#007acc",
+    name = "Typescript"
+  },
+  ["vue"] = {
+    icon = "",
+    color = "#41B883",
+    name = "Vue"
+  },
+ }
 })
 EOF
