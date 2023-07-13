@@ -265,11 +265,11 @@ nnoremap K :lua require('telescope.builtin').grep_string()<cr>
 " analysis.
 
 lua << EOF
-  -- Setup Ruby Solargraph
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  require('lspconfig').solargraph.setup({
-    capabilities = capabilities
-  })
+  -- Setup Ruby Solargraph
+  -- require('lspconfig').solargraph.setup({
+  --   capabilities = capabilities
+  -- })
 
   -- Setup Typescript Language Server
   require('lspconfig').tsserver.setup({
