@@ -7,6 +7,7 @@ Plug 'ConradIrwin/vim-bracketed-paste'  " No more `:set paste`
 Plug 'digitaltoad/vim-pug'              " syntax highlight for pug language
 Plug 'janko/vim-test'                   " Test commands
 Plug 'ntpeters/vim-better-whitespace'   " show trailing whitespaces
+Plug 'storyn26383/vim-vue'              " vue syntax highlight
 Plug 'tpope/vim-bundler'                " bundle commands
 Plug 'tpope/vim-commentary'             " easy commenting
 Plug 'tpope/vim-dispatch'               " Dispatching commands
