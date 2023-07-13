@@ -493,13 +493,13 @@ lua << EOF
 require('copilot').setup({
   panel = { enabled = false },
   suggestion = { enabled = false },
-  filetypes = {
-    javascript = true,
-    typescript = true,
-    ruby = true,
-    ["*"] = false,
-  },
-  copilot_node_command = 'node',
+  -- filetypes = {
+  --   -- javascript = true,
+  --   -- typescript = true,
+  --   -- ruby = true,
+  --   ["*"] = true,
+  -- },
+  -- copilot_node_command = 'node',
   server_opts_overrides = {},
 })
 
