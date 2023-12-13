@@ -86,19 +86,13 @@ let test#strategy = "dispatch"
 let g:ale_linters = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'ruby': ['standardrb', 'rubocop'],
-\  'yaml': ['actionlint'],
-\  'vue': ['eslint'],
-\  'javascript': ['eslint'],
-\  'typescript': ['eslint']
+\  'yaml': ['actionlint']
 \}
 
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
-\  'javascript': ['eslint'],
-\  'typescript': ['eslint'],
 \  'json': ['prettier'],
-\  'ruby': ['rubocop', 'standardrb'],
-\  'vue': ['eslint'],
+\  'ruby': ['rubocop', 'standardrb']
 \}
 
 let g:ale_ruby_rubocop_options = "--config .rubocop.yml"
@@ -177,8 +171,8 @@ nnoremap <Leader>bs :Bsplit<Space>
 nnoremap <silent> gh :Lspsaga lsp_finder<CR>
 nnoremap <Leader>d :Lspsaga hover_doc<CR>
 nnoremap <Leader>sa :Lspsaga code_action<CR>
-nnoremap <Leader>sd :Lspsaga show_cursor_diagnostics<CR>
-nnoremap <Leader>sp :Lspsaga peek_definition<CR>
+nnoremap <Leader>sd :Lspsaga show_line_diagnostics<CR>
+nnoremap <Leader>sp :Lspsaga peek_type_definition<CR>
 
 nnoremap <Leader>ex :Explore<CR>
 nnoremap <Leader>gb :Git blame<CR>
@@ -279,6 +273,17 @@ lua << EOF
   require('lspconfig').volar.setup({
     capabilities = capabilities,
     filetypes = {'vue', 'json'},
+  })
+
+  -- Setup Eslint Language Server
+  require('lspconfig').eslint.setup({
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        command = "EslintFixAll",
+      })
+    end,
   })
 EOF
 
