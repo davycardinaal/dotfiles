@@ -36,7 +36,6 @@ Plug 'glepnir/lspsaga.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'metakirby5/codi.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
