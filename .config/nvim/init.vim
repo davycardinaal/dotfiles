@@ -480,6 +480,9 @@ saga.setup({
     enable = false,
   },
   use_saga_diagnostic_sign = false,
+  lightbulb = {
+    enable = false,
+  },
   finder_action_keys = {
     open = "o",
     vsplit = "v",
