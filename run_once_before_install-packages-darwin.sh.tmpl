@@ -1,0 +1,10 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+brew "autojump"
+
+# Install casks
+# cask "google-chrome"
+EOF
+{{ end -}}
