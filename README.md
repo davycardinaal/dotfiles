@@ -1,18 +1,9 @@
 # Dotfiles
-These dotfiles are managed by Chezmoi.
+These dotfiles are managed by [Chezmoi](https://www.chezmoi.io/).
 
 ## Installation
-
-### [Homebrew](https://brew.sh/)
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-### [Chezmoi](https://www.chezmoi.io/)
-```bash
-brew install chezmoi
-```
+Run the following command to run the installation.
 
 ```bash
-chezmoi init --apply davycardinaal
+sh ./install.sh
 ```
