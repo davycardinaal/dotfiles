@@ -2,12 +2,14 @@
 #!/bin/bash
 
 brew update
+brew tap homebrew/cask-fonts
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "autojump"
 brew "neovim"
 
 cask "dropzone"
+cask "font-roboto-mono-nerd-font"
 cask "google-chrome"
 cask "iterm2"
 cask "karabiner-elements"
