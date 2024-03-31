@@ -104,3 +104,6 @@ alias vim=nvim
 
 # Initialize rbenv
 eval "$(rbenv init - zsh)"
+
+# Add postgresql to path
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
