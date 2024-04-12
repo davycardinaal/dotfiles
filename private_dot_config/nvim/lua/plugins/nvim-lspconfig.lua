@@ -104,7 +104,7 @@ return {
       servers = {
         eslint = {},
         ruby_ls = {
-          init_options = { formatter = "rubocop" },
+          cmd = { "/Users/davycardinaal/.rbenv/shims/ruby-lsp" },
           on_attach = function(client, buffer)
             setup_diagnostics(client, buffer)
             add_ruby_deps_command(client, buffer)
