@@ -103,7 +103,7 @@ return {
     opts = {
       servers = {
         eslint = {},
-        ruby_ls = {
+        ruby_lsp = {
           cmd = { "/Users/davycardinaal/.rbenv/shims/ruby-lsp" },
           on_attach = function(client, buffer)
             setup_diagnostics(client, buffer)
