@@ -4,6 +4,7 @@ return {
     lazy = true,
     dependencies = {
       "zidhuss/neotest-minitest",
+      "marilari88/neotest-vitest",
     },
     opts = {
       adapters = {
@@ -15,6 +16,7 @@ return {
             })
           end,
         },
+        ["neotest-vitest"] = {},
       },
     },
   },

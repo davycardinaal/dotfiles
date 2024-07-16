@@ -12,8 +12,9 @@ return {
       },
     },
     keys = {
-      { "<leader>/", LazyVim.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-      { "<leader><space>", LazyVim.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+      -- change a keymap
+      { "<leader>/", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
+      { "<leader><space>", LazyVim.pick("auto", { root = false }), desc = "Find Files (cwd)" },
     },
   },
 }

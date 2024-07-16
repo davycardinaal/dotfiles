@@ -92,7 +92,7 @@ return {
         "ruby-lsp",
         "shfmt",
         "stylua",
-        "typescript-language-server",
+        -- "typescript-language-server",
         "vue-language-server",
       },
     },
@@ -102,15 +102,29 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        eslint = {},
+        eslint = {
+          on_attach = function(client, bufnr)
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              command = "EslintFixAll",
+            })
+          end,
+        },
         ruby_lsp = {
-          cmd = { "/Users/davycardinaal/.rbenv/shims/ruby-lsp" },
+          cmd = { "/Users/davy/.rbenv/shims/ruby-lsp" },
+          init_options = { formatter = "rubocop" },
           on_attach = function(client, buffer)
             setup_diagnostics(client, buffer)
             add_ruby_deps_command(client, buffer)
           end,
         },
-        tsserver = {},
+        -- tsserver = {
+        --   settings = {
+        --     completions = {
+        --       completeFunctionCalls = true,
+        --     },
+        --   },
+        -- },
         volar = {
           filetypes = { "vue", "javascript", "typescript" },
           init_options = {
